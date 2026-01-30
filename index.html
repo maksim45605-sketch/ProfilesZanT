@@ -13,8 +13,8 @@
 
       --panel1: rgba(16,21,34,.92);
       --panel2: rgba(12,16,28,.92);
-      --line: rgba(255,255,255,.10);
 
+      --line: rgba(255,255,255,.10);
       --shadow: 0 22px 70px rgba(0,0,0,.35);
 
       --white:#ffffff;
@@ -22,10 +22,14 @@
       --whiteMuted:#5a667f;
       --whiteLine:#e7eaf2;
 
-      --pill:#f4f6fb;
-
       --green1:#b9f06f;
       --green2:#96d84f;
+
+      --tile: rgba(0,0,0,.16);
+      --tile2: rgba(255,255,255,.08);
+
+      --gold:#f5b100;
+      --gold2:#d18c00;
     }
 
     *{box-sizing:border-box}
@@ -39,6 +43,9 @@
       user-select:none;
       -webkit-tap-highlight-color: transparent;
     }
+
+    /* best-effort anti-save */
+    img, video { -webkit-user-drag:none; user-drag:none; }
 
     /* smaller kto.png scattered */
     .bg-icons{
@@ -192,8 +199,6 @@
       object-fit:contain;
       filter: drop-shadow(0 6px 10px rgba(0,0,0,.35));
       pointer-events:none;
-      -webkit-user-drag:none;
-      user-drag:none;
     }
 
     .nameRow{
@@ -230,8 +235,6 @@
       object-fit: contain;
       display:block;
       pointer-events:none;
-      -webkit-user-drag:none;
-      user-drag:none;
     }
 
     /* ===== content ===== */
@@ -278,7 +281,7 @@
       height: 88px;
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.16);
+      background: var(--tile);
       display:flex;
       flex-direction: column;
       align-items:center;
@@ -365,8 +368,6 @@
       width: 16px; height: 16px; object-fit: contain;
       filter: drop-shadow(0 4px 10px rgba(0,0,0,.25));
       pointer-events:none;
-      -webkit-user-drag:none;
-      user-drag:none;
     }
 
     /* analytics */
@@ -385,9 +386,8 @@
       border: 1px solid rgba(255,255,255,.12);
     }
 
-    /* review like photo (fixed layout) */
+    /* review like photo */
     .reviews{display:grid; gap: 10px;}
-
     .reviewTG{
       background: var(--white);
       border: 1px solid var(--whiteLine);
@@ -435,22 +435,13 @@
     }
     .reviewTG .pill img{
       width: 14px; height: 14px; object-fit:contain;
-      -webkit-user-drag:none; user-drag:none; pointer-events:none;
+      pointer-events:none;
     }
     .reviewTG .pill .num{font-weight: 1100}
-    .reviewTG .pill .starsText{color:#d18c00; letter-spacing: .5px; font-weight: 1100;}
-    .reviewTG .body{
-      padding: 18px 16px 18px;
-      background: #ffffff;
-    }
-    .reviewTG .comment{
-      color: #6a768e;
-      font-size: 34px;
-      line-height: 1.08;
-      font-weight: 700;
-    }
+    .reviewTG .pill .starsText{color: var(--gold2); letter-spacing: .5px; font-weight: 1100;}
+    .reviewTG .body{ padding: 18px 16px 18px; background: #ffffff; }
+    .reviewTG .comment{ color: #6a768e; font-size: 34px; line-height: 1.08; font-weight: 700; }
 
-    /* pinned label */
     .pinnedLabel{
       position:absolute;
       top: 10px;
@@ -465,11 +456,176 @@
       backdrop-filter: blur(10px);
     }
 
-    /* modal */
+    /* ===== Donate selector (stars) ===== */
+    .donateWrap{
+      margin-top: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      border-radius: 18px;
+      padding: 14px;
+    }
+    .donateTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom: 12px;
+    }
+
+    .bubble{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: #f2b100;
+      color: #141414;
+      font-weight: 1100;
+      box-shadow: 0 18px 55px rgba(0,0,0,.18);
+      position: relative;
+    }
+    .bubble::after{
+      content:"";
+      position:absolute;
+      left: 18px;
+      bottom: -10px;
+      width: 0; height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 12px solid #f2b100;
+      filter: drop-shadow(0 10px 10px rgba(0,0,0,.12));
+    }
+    .bubble svg{width: 20px; height: 20px}
+
+    .donateMsg{
+      color: rgba(255,255,255,.78);
+      font-weight: 900;
+      line-height:1.3;
+    }
+    .donateMsg b{color: rgba(255,255,255,.95)}
+
+    .sliderRow{
+      margin-top: 6px;
+      position: relative;
+      padding: 10px 2px 0;
+    }
+
+    .track{
+      height: 16px;
+      background: rgba(255,200,0,.16);
+      border: 1px solid rgba(255,200,0,.22);
+      border-radius: 999px;
+      position: relative;
+      overflow:hidden;
+    }
+    .fill{
+      position:absolute;
+      left:0; top:0; bottom:0;
+      width: 0%;
+      background: linear-gradient(90deg, rgba(255,200,0,.35), rgba(255,200,0,.12));
+    }
+
+    input[type="range"]{
+      -webkit-appearance:none;
+      appearance:none;
+      width:100%;
+      background: transparent;
+      margin-top: -16px;
+      height: 34px;
+      cursor:pointer;
+    }
+    input[type="range"]::-webkit-slider-thumb{
+      -webkit-appearance:none;
+      appearance:none;
+      width: 26px; height: 26px;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 6px solid #f2b100;
+      box-shadow: 0 10px 26px rgba(0,0,0,.25);
+    }
+    input[type="range"]::-moz-range-thumb{
+      width: 26px; height: 26px;
+      border-radius: 999px;
+      background: #ffffff;
+      border: 6px solid #f2b100;
+      box-shadow: 0 10px 26px rgba(0,0,0,.25);
+    }
+
+    .steps{
+      display:flex;
+      justify-content:space-between;
+      color: rgba(255,255,255,.65);
+      font-weight: 900;
+      font-size: 12px;
+      margin-top: 8px;
+      letter-spacing:.2px;
+    }
+
+    /* ===== Gifts grid like photo ===== */
+    .giftsGrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 12px;
+    }
+    @media (max-width:520px){ .giftsGrid{grid-template-columns: 1fr;} }
+
+    .giftCard{
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(0,0,0,.30);
+      box-shadow: 0 22px 60px rgba(0,0,0,.30);
+      padding: 14px;
+      position: relative;
+      cursor:pointer;
+      overflow:hidden;
+      min-height: 260px;
+    }
+
+    .giftVideo{
+      width: 100%;
+      height: 185px;
+      border-radius: 18px;
+      background: rgba(0,0,0,.15);
+      overflow:hidden;
+      display:grid;
+      place-items:center;
+    }
+    .giftVideo video{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display:block;
+      background: rgba(0,0,0,.08);
+      pointer-events:none;
+    }
+
+    .giftPricePill{
+      position:absolute;
+      left: 50%;
+      bottom: 14px;
+      transform: translateX(-50%);
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(255,190,0,.12);
+      border: 1px solid rgba(255,190,0,.18);
+      color: rgba(255,220,120,.95);
+      font-weight: 1100;
+      font-size: 18px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .giftPricePill svg{width: 22px; height: 22px; filter: drop-shadow(0 4px 12px rgba(0,0,0,.2));}
+
+    /* ===== Modal: Send gift (like 3rd photo) ===== */
     .overlay{
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,.45);
+      background: rgba(0,0,0,.55);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       display:none;
@@ -482,9 +638,9 @@
 
     .sheet{
       width: min(760px, 100%);
-      border-radius: 26px 26px 18px 18px;
-      background: linear-gradient(180deg, rgba(92,105,120,.95), rgba(74,86,100,.95));
-      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 22px 22px 18px 18px;
+      background: rgba(18,18,18,.96);
+      border: 1px solid rgba(255,255,255,.10);
       box-shadow: 0 24px 90px rgba(0,0,0,.55);
       overflow:hidden;
       transform: translateY(18px);
@@ -493,139 +649,123 @@
     }
     @keyframes sheetIn{ to{ transform: translateY(0) } }
 
-    .sheetTop{
-      padding: 18px 18px 12px;
-      text-align:center;
-      position: relative;
-      z-index: 1;
-    }
-    .sheetHandle{
-      width: 46px; height: 5px; border-radius: 999px;
-      background: rgba(255,255,255,.22);
-      margin: 0 auto 12px;
-    }
-    .dots{
-      position:absolute;
-      right: 12px;
-      top: 10px;
-      width: 32px;
-      height: 32px;
-      border-radius: 999px;
-      display:grid;
-      place-items:center;
-      color: rgba(255,255,255,.92);
-      background: rgba(0,0,0,.12);
-      border: 1px solid rgba(255,255,255,.12);
-      font-size: 20px;
-      line-height: 1;
-    }
-    .bigIcon{
-      width: 150px;
-      height: 150px;
-      margin: 0 auto 10px;
-      border-radius: 999px;
-      display:grid;
-      place-items:center;
-      position: relative;
-      filter: drop-shadow(0 18px 40px rgba(0,0,0,.35));
-      z-index: 1;
-    }
-    .bigIcon::before{
-      content:"";
-      position:absolute; inset:-36px;
-      background: radial-gradient(circle at 50% 45%,
-        rgba(140,200,255,.60) 0%,
-        rgba(140,200,255,.22) 40%,
-        rgba(140,200,255,0) 72%);
-      border-radius: 999px;
-      animation: glow 1.8s ease-in-out infinite;
-    }
-    .bigIcon::after{
-      content:"";
-      position:absolute; inset:-44px;
-      border-radius:999px;
-      background:
-        radial-gradient(circle at 22% 30%, rgba(255,255,255,.28) 0 4px, transparent 5px),
-        radial-gradient(circle at 72% 18%, rgba(255,255,255,.22) 0 3px, transparent 4px),
-        radial-gradient(circle at 84% 66%, rgba(255,255,255,.24) 0 3px, transparent 4px),
-        radial-gradient(circle at 18% 76%, rgba(255,255,255,.20) 0 3px, transparent 4px);
-      opacity:.9;
-    }
-    .bigIcon img{
-      width: 140px;
-      height: 140px;
-      object-fit: contain;
-      display:block;
-      pointer-events:none;
-      -webkit-user-drag:none;
-      user-drag:none;
-    }
-    .giftTitle{
-      margin: 0;
-      font-size: 28px;
+    .sheetHeader{
+      padding: 14px 16px;
+      font-size: 22px;
       font-weight: 1100;
-      letter-spacing:.2px;
-      color: rgba(255,255,255,.95);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: rgba(30,30,30,.85);
+    }
+
+    /* doodle decor behind like Telegram */
+    .sheetBody{
+      position: relative;
+      padding: 14px 16px 12px;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255,190,0,.08), transparent 55%),
+        radial-gradient(circle at 80% 20%, rgba(255,190,0,.06), transparent 50%),
+        linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.25));
+    }
+    .sheetBody::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      opacity:.25;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at 12% 20%, rgba(255,190,0,.25) 0 2px, transparent 3px),
+        radial-gradient(circle at 32% 55%, rgba(255,190,0,.22) 0 2px, transparent 3px),
+        radial-gradient(circle at 74% 34%, rgba(255,190,0,.20) 0 2px, transparent 3px),
+        radial-gradient(circle at 88% 68%, rgba(255,190,0,.18) 0 2px, transparent 3px),
+        repeating-linear-gradient(45deg, rgba(255,190,0,.08) 0 1px, transparent 1px 22px);
+      mix-blend-mode: screen;
+    }
+
+    .sheetInfo{
+      text-align:center;
+      color: rgba(255,255,255,.88);
+      font-weight: 900;
+      line-height: 1.25;
       position: relative;
       z-index: 1;
-    }
-    .giftSub{
       margin-top: 6px;
-      color: rgba(255,255,255,.70);
-      font-weight: 800;
-      font-size: 18px;
+    }
+    .sheetInfo small{
+      display:block;
+      color: rgba(255,255,255,.65);
+      font-weight: 900;
+      margin-top: 8px;
+    }
+
+    .giftPreview{
+      margin: 12px auto 10px;
+      width: min(460px, 100%);
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);
+      overflow:hidden;
       position: relative;
       z-index: 1;
     }
 
-    .tableWrap{
-      padding: 12px 16px 10px;
-      background: linear-gradient(180deg, rgba(0,0,0,.28), rgba(0,0,0,.30));
-      position: relative;
-      z-index: 1;
+    .giftPreviewInner{
+      padding: 18px 16px 16px;
+      display:grid;
+      place-items:center;
+      gap: 10px;
+      text-align:center;
     }
-    .table{
-      width: 100%;
-      border-collapse: separate;
-      border-spacing: 0;
+
+    .giftPreviewVideo{
+      width: 210px;
+      height: 210px;
+      border-radius: 18px;
+      background: rgba(0,0,0,.18);
       overflow:hidden;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.22);
+      display:grid;
+      place-items:center;
     }
-    .table tr + tr td{border-top: 1px solid rgba(255,255,255,.10)}
-    .table td{
-      padding: 13px 12px;
-      vertical-align: middle;
-      font-size: 15px;
-      color: rgba(255,255,255,.92);
+    .giftPreviewVideo video{
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display:block;
+      background: rgba(0,0,0,.08);
+      pointer-events:none;
     }
-    .k{
-      width: 36%;
-      color: rgba(255,255,255,.78);
+
+    .giftFrom{
+      color: rgba(255,255,255,.90);
       font-weight: 1000;
+      font-size: 18px;
+      margin-top: 2px;
+    }
+    .giftHint{
+      color: rgba(255,255,255,.72);
+      font-weight: 900;
+      margin-top: 6px;
+    }
+
+    .sheetInput{
+      margin-top: 10px;
+      width: 100%;
+      border-radius: 18px;
+      padding: 14px 14px;
       background: rgba(255,255,255,.06);
-    }
-    .v{ width: 64%; font-weight: 1000; }
-    .chipGreen{
-      display:inline-flex; align-items:center;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(150, 216, 79, .22);
-      border: 1px solid rgba(150, 216, 79, .35);
-      color: rgba(233,255,200,.95);
-      font-weight: 1100;
-      font-size: 12px;
-      margin-left: 10px;
-      white-space: nowrap;
-    }
-    .okBar{
-      padding: 12px 16px 16px;
-      background: rgba(0,0,0,.30);
+      border: 1px solid rgba(255,255,255,.10);
+      color: rgba(255,255,255,.92);
+      font-weight: 900;
+      text-align:center;
       position: relative;
       z-index: 1;
     }
-    .okBtn{
+
+    .sheetFooter{
+      padding: 14px 16px 16px;
+      background: rgba(0,0,0,.35);
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .sendBtn{
       width: 100%;
       border: 0;
       cursor: pointer;
@@ -635,6 +775,36 @@
       font-size: 18px;
       color: rgba(10,12,16,.88);
       background: linear-gradient(180deg, var(--green1), var(--green2));
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      gap: 10px;
+    }
+    .sendBtn svg{width: 22px; height: 22px}
+
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%) translateY(20px);
+      background: rgba(0,0,0,.75);
+      border: 1px solid rgba(255,255,255,.10);
+      color: rgba(255,255,255,.92);
+      font-weight: 1000;
+      padding: 12px 14px;
+      border-radius: 999px;
+      opacity: 0;
+      transition: .18s ease;
+      pointer-events:none;
+      z-index: 2000;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      text-align:center;
+      max-width: min(520px, 92vw);
+    }
+    .toast.show{
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
 
     @media (max-width:520px){
@@ -642,8 +812,6 @@
       .aboutText{font-size: 22px}
       .reviewTG .comment{font-size: 30px}
       .reviewTG .nick{font-size: 20px}
-      .giftTitle{font-size: 24px}
-      .giftSub{font-size: 16px}
     }
   </style>
 </head>
@@ -652,6 +820,7 @@
   <div class="bg-icons" aria-hidden="true"></div>
 
   <div class="page">
+    <!-- ===== PROFILE HEADER ===== -->
     <header class="header">
       <div class="avatarArea" id="avatarArea">
         <div class="avatarRing" id="avatarRing">
@@ -675,6 +844,7 @@
       </div>
     </header>
 
+    <!-- ===== CONTENT ===== -->
     <main class="content">
       <section class="panel">
         <div class="inner">
@@ -682,7 +852,6 @@
             <div class="aboutText">Делаю стикеры под вашего персонажа</div>
             <div class="aboutLabel">О себе</div>
 
-            <!-- CHAT TILE -->
             <div class="tileRow">
               <a class="tile" href="https://t.me/RealZanT" target="_blank" rel="noopener">
                 <svg width="34" height="34" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -693,12 +862,13 @@
             </div>
           </div>
 
+          <!-- ===== BASE ===== -->
           <div class="sectionTitle">База</div>
           <div class="card">
             <div class="statsGrid">
               <div class="statBox">
                 <div class="statLabel">ВСЕГО СТИКЕРОВ СДЕЛАНО</div>
-                <div class="statValue" id="stickersCount">—</div>
+                <div class="statValue" id="stickersCount">0</div>
               </div>
               <div class="statBox">
                 <div class="statLabel">КОМАНДА</div>
@@ -707,6 +877,7 @@
             </div>
           </div>
 
+          <!-- ===== PRODUCTS ===== -->
           <div class="sectionTitle">Товары</div>
           <div class="card">
             <div class="productRow">
@@ -715,12 +886,70 @@
                 <p class="productDesc">Ваш красивой оформленные стикеры под вашего персонажа!</p>
               </div>
               <div class="price" title="Цена в звёздах">
-                <img src="img/star.png" alt="star">
+                <img src="img/star.png" alt="star" onerror="this.style.display='none'">
                 <span>15</span>
               </div>
             </div>
           </div>
 
+          <!-- ===== DONATE (STARS SELECTOR) + GIFTS ===== -->
+          <div class="sectionTitle">Пожертвовать звёзды</div>
+          <div class="donateWrap">
+            <div class="donateTop">
+              <div class="bubble" id="bubble">
+                <!-- star -->
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="#ffffff" d="M12 2.6l2.62 6.29 6.8.56-5.18 4.48 1.58 6.66L12 17.9 6.18 20.6l1.58-6.66L2.58 9.45l6.8-.56L12 2.6z"/>
+                </svg>
+                <span id="bubbleVal">15</span>
+              </div>
+
+              <div class="donateMsg" id="donateMsg">
+                Вы выбрали: <b><span id="chosenVal">15</span> ⭐</b><br>
+                Отправлю на юз <b>@RealZanT</b>
+              </div>
+            </div>
+
+            <div class="sliderRow">
+              <div class="track">
+                <div class="fill" id="fill"></div>
+              </div>
+              <input id="starsRange" type="range" min="0" max="3" step="1" value="0" aria-label="Выбор звёзд">
+              <div class="steps">
+                <span>15</span><span>25</span><span>50</span><span>100</span>
+              </div>
+            </div>
+
+            <div class="giftsGrid" id="giftsGrid" style="margin-top:14px;">
+              <!-- Gift 1 -->
+              <div class="giftCard" data-gift="love" data-title="Love" role="button" aria-label="Подарок Love">
+                <div class="giftVideo">
+                  <video id="giftLove" src="video/love.mp4" muted playsinline preload="metadata"></video>
+                </div>
+                <div class="giftPricePill">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="#f5b100" d="M12 2.6l2.62 6.29 6.8.56-5.18 4.48 1.58 6.66L12 17.9 6.18 20.6l1.58-6.66L2.58 9.45l6.8-.56L12 2.6z"/>
+                  </svg>
+                  <span class="giftPriceVal">15</span>
+                </div>
+              </div>
+
+              <!-- Gift 2 -->
+              <div class="giftCard" data-gift="mishka" data-title="Мишка" role="button" aria-label="Подарок Мишка">
+                <div class="giftVideo">
+                  <video id="giftMishka" src="video/mishka.mp4" muted playsinline preload="metadata"></video>
+                </div>
+                <div class="giftPricePill">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="#f5b100" d="M12 2.6l2.62 6.29 6.8.56-5.18 4.48 1.58 6.66L12 17.9 6.18 20.6l1.58-6.66L2.58 9.45l6.8-.56L12 2.6z"/>
+                  </svg>
+                  <span class="giftPriceVal">15</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== REVIEWS ===== -->
           <div class="sectionTitle">Отзывы</div>
           <div class="analytics" id="analytics"></div>
           <div class="reviews" id="reviews"></div>
@@ -729,68 +958,52 @@
     </main>
   </div>
 
-  <!-- Modal -->
+  <!-- ===== Modal: Send Gift ===== -->
   <div class="overlay" id="overlay" aria-hidden="true">
-    <div class="sheet" role="dialog" aria-modal="true" aria-label="Карточка подарка">
-      <div class="sheetTop">
-        <div class="sheetHandle"></div>
-        <div class="dots">⋮</div>
+    <div class="sheet" role="dialog" aria-modal="true" aria-label="Отправить подарок">
+      <div class="sheetHeader">Отправить подарок</div>
 
-        <div class="bigIcon">
-          <img src="img/leg.png" alt="Lol Pop">
+      <div class="sheetBody">
+        <div class="sheetInfo" id="sheetInfo">
+          <div><span style="opacity:.9;">MRZANT|SHOP|OFFICIAL</span> отправил(а) Вам подарок стоимостью <b><span id="modalCostTop">15</span> звёзд</b></div>
+          <small>Подарок от MRZANT|SHOP|OFFICIAL</small>
         </div>
 
-        <h2 class="giftTitle">Lol Pop</h2>
-        <div class="giftSub">Коллекционный подарок #215,012</div>
+        <div class="giftPreview">
+          <div class="giftPreviewInner">
+            <div class="giftPreviewVideo">
+              <video id="modalGiftVideo" muted playsinline preload="metadata"></video>
+            </div>
+
+            <div class="giftFrom" id="modalGiftTitle">Подарок</div>
+            <div class="giftHint">Вы можете добавить этот подарок в профиль.</div>
+
+            <div class="sheetInput">Отправляйте сюда @RealZanT</div>
+          </div>
+        </div>
       </div>
 
-      <div class="tableWrap">
-        <table class="table">
-          <tr>
-            <td class="k">Владелец</td>
-            <td class="v">
-              MRZANT|SHOP|OFFICIAL
-              <span class="verifyImg" style="margin-left:8px; transform:translateY(3px);">
-                <img src="img/Gal.png" alt="verified">
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <td class="k">Модель</td>
-            <td class="v">Iced Latte <span class="chipGreen">1.2%</span></td>
-          </tr>
-          <tr>
-            <td class="k">Узор</td>
-            <td class="v">Narcissus <span class="chipGreen">0.2%</span></td>
-          </tr>
-          <tr>
-            <td class="k">Фон</td>
-            <td class="v">Midnight Blue <span class="chipGreen">1.5%</span></td>
-          </tr>
-          <tr>
-            <td class="k">Количество</td>
-            <td class="v">431,084/468,745 выпущено</td>
-          </tr>
-          <tr>
-            <td class="k">Ценность</td>
-            <td class="v">~699 ₽ <span class="chipGreen">подробнее</span></td>
-          </tr>
-        </table>
-      </div>
-
-      <div class="okBar">
-        <button class="okBtn" id="okBtn">OK</button>
+      <div class="sheetFooter">
+        <button class="sendBtn" id="sendBtn">
+          Отправить подарок за
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#ffffff" d="M12 2.6l2.62 6.29 6.8.56-5.18 4.48 1.58 6.66L12 17.9 6.18 20.6l1.58-6.66L2.58 9.45l6.8-.56L12 2.6z"/>
+          </svg>
+          <span id="modalCostBtn">15</span>
+        </button>
       </div>
     </div>
   </div>
 
+  <div class="toast" id="toast">Отправлю на юз @RealZanT</div>
+
   <script>
-    // Anti-download (best effort)
+    // Best-effort anti-save
     document.addEventListener("contextmenu", (e) => e.preventDefault());
     document.addEventListener("dragstart", (e) => e.preventDefault());
     document.addEventListener("selectstart", (e) => e.preventDefault());
 
-    // Lollipop: random position ONCE per visit (no moving when scrolling)
+    // Lollipop: random position ONCE per visit
     const area = document.getElementById("avatarArea");
     const ring = document.getElementById("avatarRing");
     const lol  = document.getElementById("lolPopBtn");
@@ -819,65 +1032,24 @@
     window.addEventListener("load", placeLolPopOnce);
     window.addEventListener("orientationchange", () => setTimeout(placeLolPopOnce, 250));
 
-    // Modal open/close
-    const overlay = document.getElementById("overlay");
-    const okBtn   = document.getElementById("okBtn");
-
-    function openSheet(){
-      overlay.classList.add("open");
-      overlay.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
-    }
-    function closeSheet(){
-      overlay.classList.remove("open");
-      overlay.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
-    }
-    lol.addEventListener("click", openSheet);
-    okBtn.addEventListener("click", closeSheet);
-    overlay.addEventListener("click", (e) => { if (e.target === overlay) closeSheet(); });
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && overlay.classList.contains("open")) closeSheet();
-    });
-
-    // "База": добавляем стикеры каждые 2 минуты (сохраняем на этом устройстве)
-    const TEAM = ["RealZanT"]; // если хочешь — скажешь список, я добавлю
-    document.getElementById("teamList").textContent = TEAM.join(", ");
-
+    // Baza: add +1..2 every 30 seconds (saved on this device)
     const KEY = "mrzant_stickers_made";
     const countEl = document.getElementById("stickersCount");
-
     let count = parseInt(localStorage.getItem(KEY) || "0", 10);
     countEl.textContent = String(count);
 
-    function addSticker(){
-      count += 1; // можно сделать +2 иногда, если скажешь
+    function addStickerRandom(){
+      const inc = (Math.random() < 0.5 ? 1 : 2);
+      count += inc;
       localStorage.setItem(KEY, String(count));
       countEl.textContent = String(count);
     }
+    setInterval(addStickerRandom, 30000);
 
-    // каждые 2 минуты
-    // "База": добавляем стикеры каждые 30 секунд (+1 или +2)
-const KEY = "mrzant_stickers_made";
-const countEl = document.getElementById("stickersCount");
-
-let count = parseInt(localStorage.getItem(KEY) || "0", 10);
-countEl.textContent = String(count);
-
-function addStickerRandom(){
-  const inc = (Math.random() < 0.5 ? 1 : 2); // +1 или +2
-  count += inc;
-  localStorage.setItem(KEY, String(count));
-  countEl.textContent = String(count);
-}
-
-setInterval(addStickerRandom, 30000);
-
-    // Reviews + analytics (fixed like screenshot)
+    // Reviews + analytics
     const reviews = [
       { pinned: true, nickname: "Матушка Росинка", stars: 5, comment: "Проверка" }
     ];
-
     const reviewsEl = document.getElementById("reviews");
     const analyticsEl = document.getElementById("analytics");
 
@@ -897,7 +1069,6 @@ setInterval(addStickerRandom, 30000);
       for (const r of sorted){
         const div = document.createElement("div");
         div.className = "reviewTG";
-
         const starsText = "★".repeat(r.stars) + "☆".repeat(Math.max(0, 5 - r.stars));
 
         div.innerHTML = `
@@ -905,7 +1076,7 @@ setInterval(addStickerRandom, 30000);
           <div class="top">
             <div class="nick">${escapeHtml(r.nickname)}</div>
             <div class="badgeRight">
-              <img class="pinStar" src="img/star.png" alt="star">
+              <img class="pinStar" src="img/star.png" alt="star" onerror="this.style.display='none'">
               <div class="pill">
                 <span class="num">${r.stars}</span>
                 <span class="starsText">${starsText}</span>
@@ -929,8 +1100,125 @@ setInterval(addStickerRandom, 30000);
         <div class="chip">Средняя ⭐: <b>${avg}</b></div>
       `;
     }
-
     renderReviews();
+
+    // Stars selector (15,25,50,100)
+    const amounts = [15, 25, 50, 100];
+    const range = document.getElementById("starsRange");
+    const bubbleVal = document.getElementById("bubbleVal");
+    const chosenVal = document.getElementById("chosenVal");
+    const fill = document.getElementById("fill");
+    const giftPriceEls = document.querySelectorAll(".giftPriceVal");
+
+    function setAmountByIndex(i){
+      const val = amounts[i] ?? 15;
+      bubbleVal.textContent = val;
+      chosenVal.textContent = val;
+
+      // fill: 0..3 => 0..100
+      const pct = (i / 3) * 100;
+      fill.style.width = pct + "%";
+
+      // gift price pills
+      giftPriceEls.forEach(el => el.textContent = val);
+
+      // modal prices
+      document.getElementById("modalCostTop").textContent = val;
+      document.getElementById("modalCostBtn").textContent = val;
+    }
+
+    range.addEventListener("input", () => {
+      setAmountByIndex(parseInt(range.value, 10));
+    });
+
+    setAmountByIndex(0);
+
+    // Play once helper
+    function playOnce(videoEl){
+      try{
+        videoEl.pause();
+        videoEl.currentTime = 0;
+        videoEl.loop = false;
+        const p = videoEl.play();
+        if (p && typeof p.catch === "function") p.catch(()=>{});
+        videoEl.onended = () => {
+          videoEl.pause();
+        };
+      }catch(e){}
+    }
+
+    // Gifts: click to play + open modal with 3rd-photo-like decor
+    const overlay = document.getElementById("overlay");
+    const modalGiftVideo = document.getElementById("modalGiftVideo");
+    const modalGiftTitle = document.getElementById("modalGiftTitle");
+    const toast = document.getElementById("toast");
+    const sendBtn = document.getElementById("sendBtn");
+
+    let selectedGift = null;
+
+    function openSheet(){
+      overlay.classList.add("open");
+      overlay.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+    function closeSheet(){
+      overlay.classList.remove("open");
+      overlay.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      try{ modalGiftVideo.pause(); }catch(e){}
+    }
+
+    function showToast(text){
+      toast.textContent = text;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 1500);
+    }
+
+    // lollipop click -> open its own sheet (just keeps your earlier behavior)
+    lol.addEventListener("click", () => {
+      // open modal with lollipop as preview
+      selectedGift = { title: "Lol Pop", src: "img/leg.png", type: "img" };
+      modalGiftTitle.textContent = "Lol Pop";
+      modalGiftVideo.src = ""; // clear
+      // show lollipop as video? нет — просто откроем модалку и покажем текст (без видео)
+      openSheet();
+      showToast("Отправлю на юз @RealZanT");
+    });
+
+    // Gift cards
+    document.querySelectorAll(".giftCard").forEach(card => {
+      card.addEventListener("click", () => {
+        const gift = card.dataset.gift; // love / mishka
+        const title = card.dataset.title || "Подарок";
+        const val = amounts[parseInt(range.value,10)] ?? 15;
+
+        // play preview once on card
+        const v = card.querySelector("video");
+        playOnce(v);
+
+        // open modal
+        selectedGift = { gift, title, price: val };
+
+        modalGiftTitle.textContent = `Подарок: ${title}`;
+        modalGiftVideo.src = (gift === "love") ? "video/love.mp4" : "video/mishka.mp4";
+        modalGiftVideo.load();
+        openSheet();
+        // play in modal once each open
+        setTimeout(() => playOnce(modalGiftVideo), 80);
+      });
+    });
+
+    // modal close actions
+    overlay.addEventListener("click", (e) => { if (e.target === overlay) closeSheet(); });
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && overlay.classList.contains("open")) closeSheet();
+    });
+
+    // send button (just message, no real payment)
+    sendBtn.addEventListener("click", () => {
+      showToast("Отправлю на юз @RealZanT");
+      closeSheet();
+    });
   </script>
 </body>
 </html>
