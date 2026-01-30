@@ -9,9 +9,11 @@
     :root{
       --bg:#64707e; --bg2:#5d6876; --text:#eef3ff;
       --panel1: rgba(16,21,34,.92); --panel2: rgba(12,16,28,.92);
-      --white:#fff; --whiteLine:#e7eaf2; --gold2:#d18c00;
+      --white:#fff; --whiteLine:#e7eaf2;
+      --gold:#f2b100; --gold2:#d18c00;
       --green1:#b9f06f; --green2:#96d84f;
-      --gold:#f2b100;
+      --chipGreen: rgba(150,216,79,.18);
+      --chipGreenText: rgba(150,216,79,.95);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
@@ -110,6 +112,7 @@
       background: rgba(0,0,0,.18); border: 1px solid rgba(0,0,0,.25); }
     .avatar video{ width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; }
 
+    /* lollipop button (leg.png) */
     .lolPop{
       position:absolute; width:36px; height:36px; border-radius:999px;
       display:grid; place-items:center; cursor:pointer;
@@ -334,7 +337,7 @@
     .steps{ display:flex; justify-content:space-between;
       color: rgba(255,255,255,.65); font-weight: 900; font-size: 12px; margin-top: 8px; }
 
-    /* Gifts */
+    /* Gifts grid */
     .giftsGrid{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -366,24 +369,6 @@
       pointer-events:none;
       transition: .18s ease;
     }
-    .giftCard::after{
-      content:"";
-      position:absolute;
-      top:-60px; left:-60px;
-      width:160px; height:160px;
-      background: radial-gradient(circle, rgba(255,255,255,.16), transparent 60%);
-      transform: rotate(25deg);
-      opacity:.65;
-      animation: shine 3.2s ease-in-out infinite alternate;
-      pointer-events:none;
-    }
-    @keyframes shine{
-      from{ transform: translate3d(0,0,0) rotate(25deg); opacity:.35; }
-      to{ transform: translate3d(50px,50px,0) rotate(25deg); opacity:.80; }
-    }
-    .giftCard:hover{ transform: translateY(-1px); }
-    .giftCard:hover::before{ opacity:1; filter: blur(12px); }
-
     .giftVideo{
       width: 100%;
       height: 110px;
@@ -474,7 +459,6 @@
       min-width: 140px;
       justify-content:center;
     }
-    .reviewTG .pill img{ width: 14px; height: 14px; object-fit:contain; pointer-events:none; }
     .reviewTG .pill .num{font-weight: 1100}
     .reviewTG .pill .starsText{color: var(--gold2); letter-spacing: .5px; font-weight: 1100;}
     .reviewTG .body{ padding: 18px 16px 18px; background: #ffffff; }
@@ -490,7 +474,7 @@
       backdrop-filter: blur(10px);
     }
 
-    /* Modal */
+    /* ===== Overlays ===== */
     .overlay{
       position: fixed; inset: 0;
       background: rgba(0,0,0,.58);
@@ -503,6 +487,7 @@
       z-index: 999;
     }
     .overlay.open{display:flex}
+
     .sheet{
       width: min(760px, 100%);
       border-radius: 22px 22px 18px 18px;
@@ -515,6 +500,7 @@
       position: relative;
     }
     @keyframes sheetIn{ to{ transform: translateY(0) } }
+
     .sheetHeader{
       padding: 14px 16px;
       font-size: 22px;
@@ -537,29 +523,9 @@
       font-size: 22px;
       line-height: 38px;
     }
+    .sheetBody{ position: relative; padding: 14px 16px 12px; }
 
-    .sheetBody{
-      position: relative;
-      padding: 14px 16px 12px;
-      background:
-        radial-gradient(circle at 20% 30%, rgba(255,190,0,.10), transparent 55%),
-        radial-gradient(circle at 80% 20%, rgba(140,200,255,.08), transparent 50%),
-        radial-gradient(circle at 50% 85%, rgba(220,170,255,.08), transparent 55%),
-        linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.25));
-    }
-    .sheetBody::before{
-      content:"";
-      position:absolute; inset:0;
-      opacity:.28; pointer-events:none;
-      background:
-        radial-gradient(circle at 12% 20%, rgba(255,190,0,.30) 0 2px, transparent 3px),
-        radial-gradient(circle at 32% 55%, rgba(255,190,0,.22) 0 2px, transparent 3px),
-        radial-gradient(circle at 74% 34%, rgba(255,190,0,.20) 0 2px, transparent 3px),
-        radial-gradient(circle at 88% 68%, rgba(255,190,0,.18) 0 2px, transparent 3px),
-        repeating-linear-gradient(45deg, rgba(255,190,0,.08) 0 1px, transparent 1px 22px);
-      mix-blend-mode: screen;
-    }
-
+    /* ===== Gift send modal (for videos in categories) ===== */
     .giftPreview{
       margin: 10px auto 10px;
       width: min(460px, 100%);
@@ -578,20 +544,6 @@
       position:relative;
       overflow:hidden;
     }
-    .giftPreviewInner::before{
-      content:"";
-      position:absolute; inset:-40px;
-      background:
-        radial-gradient(circle at 22% 30%, rgba(255,255,255,.16) 0 4px, transparent 5px),
-        radial-gradient(circle at 72% 18%, rgba(255,255,255,.12) 0 3px, transparent 4px),
-        radial-gradient(circle at 84% 66%, rgba(255,255,255,.14) 0 3px, transparent 4px),
-        radial-gradient(circle at 18% 76%, rgba(255,255,255,.10) 0 3px, transparent 4px);
-      opacity:.75;
-      pointer-events:none;
-      animation: tw 2.8s ease-in-out infinite alternate;
-    }
-    @keyframes tw{ from{transform:translateY(-4px)} to{transform:translateY(4px)} }
-
     .giftPreviewVideo{
       width: 200px;
       height: 200px;
@@ -626,7 +578,6 @@
       position:relative;
       z-index:1;
     }
-
     .sheetInput{
       margin-top: 10px;
       width: 100%;
@@ -640,7 +591,6 @@
       position: relative;
       z-index: 1;
     }
-
     .sheetFooter{
       padding: 14px 16px 16px;
       background: rgba(0,0,0,.35);
@@ -658,6 +608,163 @@
       background: rgba(255,255,255,.10);
       border: 1px solid rgba(255,255,255,.12);
       box-shadow: 0 18px 55px rgba(0,0,0,.28);
+    }
+
+    /* ===== Lollipop details modal (like your screenshot) ===== */
+    .lolOverlay{ z-index: 1200; }
+    .lolCard{
+      width: min(760px, 100%);
+      border-radius: 22px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: 0 28px 120px rgba(0,0,0,.65);
+      background: rgba(0,0,0,.55);
+      transform: translateY(18px);
+      animation: sheetIn .22s ease-out forwards;
+    }
+    .lolTop{
+      padding: 24px 16px 18px;
+      text-align:center;
+      background: linear-gradient(180deg, rgba(95,108,126,.90), rgba(78,90,110,.92));
+      position:relative;
+    }
+    .lolTop::before{
+      content:"";
+      position:absolute; inset:0;
+      opacity:.30;
+      background:
+        radial-gradient(circle at 22% 30%, rgba(255,255,255,.12) 0 4px, transparent 5px),
+        radial-gradient(circle at 72% 18%, rgba(255,255,255,.10) 0 3px, transparent 4px),
+        radial-gradient(circle at 84% 66%, rgba(255,255,255,.12) 0 3px, transparent 4px),
+        radial-gradient(circle at 18% 76%, rgba(255,255,255,.08) 0 3px, transparent 4px);
+      mix-blend-mode: overlay;
+      pointer-events:none;
+    }
+    .lolBig{
+      width: 210px; height: 210px;
+      margin: 0 auto 10px;
+      border-radius: 999px;
+      display:grid; place-items:center;
+      position:relative;
+    }
+    .lolBig::before{
+      content:"";
+      position:absolute; inset:-28px;
+      border-radius:999px;
+      background: radial-gradient(circle at 50% 45%,
+        rgba(140,200,255,.55) 0%,
+        rgba(140,200,255,.18) 40%,
+        transparent 70%);
+      filter: blur(8px);
+      opacity:.95;
+    }
+    .lolBig video{
+      width: 210px; height: 210px;
+      object-fit: contain;
+      position:relative;
+      z-index:1;
+      pointer-events:none;
+      filter: drop-shadow(0 18px 40px rgba(0,0,0,.35));
+    }
+    .lolTitle{
+      font-size: 34px;
+      font-weight: 1100;
+      margin: 8px 0 4px;
+      color: rgba(255,255,255,.95);
+      letter-spacing:.2px;
+      text-shadow: 0 16px 40px rgba(0,0,0,.25);
+    }
+    .lolSub{
+      font-size: 20px;
+      font-weight: 900;
+      color: rgba(255,255,255,.55);
+      margin: 0;
+    }
+
+    .lolTableWrap{
+      padding: 16px;
+      background: rgba(0,0,0,.58);
+    }
+    .lolTable{
+      width: 100%;
+      border-radius: 18px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.45);
+    }
+    .row{
+      display:grid;
+      grid-template-columns: 150px 1fr;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .row:first-child{ border-top: 0; }
+    .cellL{
+      padding: 14px 14px;
+      font-weight: 1100;
+      color: rgba(255,255,255,.92);
+      background: rgba(255,255,255,.04);
+      border-right: 1px solid rgba(255,255,255,.08);
+    }
+    .cellR{
+      padding: 14px 14px;
+      color: rgba(255,255,255,.88);
+      display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    }
+    .owner{
+      display:inline-flex; align-items:center; gap:10px;
+      font-weight: 1100;
+      color: rgba(155,240,140,.95);
+    }
+    .owner .miniAva{
+      width: 26px; height: 26px; border-radius: 999px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      flex: 0 0 auto;
+    }
+    .owner .miniAva video{
+      width:100%; height:100%; object-fit:cover; display:block; pointer-events:none;
+    }
+    .owner .vmark{
+      width: 20px; height: 20px; border-radius:999px;
+      overflow:hidden; border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      display:grid; place-items:center;
+    }
+    .owner .vmark img{ width: 14px; height:14px; object-fit:contain; pointer-events:none; }
+
+    .chipP{
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(150,216,79,.22);
+      background: var(--chipGreen);
+      color: var(--chipGreenText);
+      font-weight: 1100;
+      font-size: 14px;
+      line-height:1;
+    }
+
+    .lolOkWrap{
+      padding: 14px 16px 18px;
+      background: rgba(0,0,0,.58);
+    }
+    .lolOk{
+      width:100%;
+      border:0;
+      cursor:pointer;
+      border-radius: 16px;
+      padding: 18px 14px;
+      font-weight: 1100;
+      font-size: 18px;
+      color: rgba(10,12,16,.88);
+      background: linear-gradient(180deg, var(--green1), var(--green2));
+      box-shadow: 0 18px 55px rgba(0,0,0,.30);
+    }
+    @media (max-width:520px){
+      .row{ grid-template-columns: 130px 1fr; }
+      .lolTitle{ font-size: 30px; }
+      .lolSub{ font-size: 18px; }
+      .lolBig, .lolBig video{ width: 190px; height:190px; }
     }
 
     .toast{
@@ -681,14 +788,6 @@
       max-width: min(520px, 92vw);
     }
     .toast.show{ opacity: 1; transform: translateX(-50%) translateY(0); }
-
-    @media (max-width:520px){
-      .name{font-size:22px}
-      .aboutText{font-size:22px}
-      .reviewTG .comment{font-size:30px}
-      .reviewTG .nick{font-size:20px}
-      .giftPreviewVideo{width: 185px; height: 185px;}
-    }
   </style>
 </head>
 
@@ -705,7 +804,7 @@
           </div>
         </div>
 
-        <!-- lolpop button -->
+        <!-- lollipop button -->
         <div class="lolPop" id="lolPopBtn" title="Lol Pop">
           <span class="spark" aria-hidden="true"></span>
           <img src="img/leg.png" alt="Lol Pop">
@@ -765,7 +864,6 @@
             </div>
           </div>
 
-          <!-- DONATE -->
           <div class="sectionTitle">Пожертвовать звёзды</div>
           <div class="donateWrap">
             <div class="donateTop">
@@ -791,7 +889,6 @@
             <div id="giftsBlock"></div>
           </div>
 
-          <!-- REVIEWS -->
           <div class="sectionTitle">Отзывы</div>
           <div class="analytics" id="analytics"></div>
           <div class="reviews" id="reviews"></div>
@@ -800,12 +897,12 @@
     </main>
   </div>
 
-  <!-- Modal -->
-  <div class="overlay" id="overlay" aria-hidden="true">
+  <!-- Gift modal (for category gifts) -->
+  <div class="overlay" id="giftOverlay" aria-hidden="true">
     <div class="sheet" role="dialog" aria-modal="true" aria-label="Отправить подарок">
       <div class="sheetHeader">
         <span>Отправить подарок</span>
-        <button class="closeX" id="closeX" aria-label="Закрыть">×</button>
+        <button class="closeX" id="giftCloseX" aria-label="Закрыть">×</button>
       </div>
 
       <div class="sheetBody">
@@ -820,7 +917,74 @@
       </div>
 
       <div class="sheetFooter">
-        <button class="closeBtn" id="closeBtn">Закрыть</button>
+        <button class="closeBtn" id="giftCloseBtn">Закрыть</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lolpop details modal (LIKE SCREENSHOT) -->
+  <div class="overlay lolOverlay" id="lolOverlay" aria-hidden="true">
+    <div class="lolCard" role="dialog" aria-modal="true" aria-label="Lol Pop">
+      <div class="lolTop">
+        <div class="lolBig">
+          <video id="lolBigVideo" muted playsinline preload="metadata"></video>
+        </div>
+        <div class="lolTitle">Lol Pop</div>
+        <p class="lolSub">Коллекционный подарок #215,012</p>
+      </div>
+
+      <div class="lolTableWrap">
+        <div class="lolTable">
+          <div class="row">
+            <div class="cellL">Владелец</div>
+            <div class="cellR">
+              <span class="owner">
+                <span class="miniAva"><video src="video/avatar.mp4" autoplay muted loop playsinline></video></span>
+                MRZANT|SHOP|OFFICIAL
+                <span class="vmark"><img src="img/Gal.png" alt="v"></span>
+              </span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="cellL">Модель</div>
+            <div class="cellR">
+              Iced Latte <span class="chipP">1.2%</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="cellL">Узор</div>
+            <div class="cellR">
+              Narcissus <span class="chipP">0.2%</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="cellL">Фон</div>
+            <div class="cellR">
+              Midnight Blue <span class="chipP">1.5%</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="cellL">Количество</div>
+            <div class="cellR">
+              431,084/468,745 выпущено
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="cellL">Ценность</div>
+            <div class="cellR">
+              ~699 ₽ <span class="chipP" style="border-color:rgba(255,255,255,.14); background:rgba(255,255,255,.08); color:rgba(255,255,255,.85);">подробнее</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lolOkWrap">
+        <button class="lolOk" id="lolOkBtn">OK</button>
       </div>
     </div>
   </div>
@@ -836,7 +1000,7 @@
     // Lolpop random position once
     const area = document.getElementById("avatarArea");
     const ring = document.getElementById("avatarRing");
-    const lol  = document.getElementById("lolPopBtn");
+    const lolBtn = document.getElementById("lolPopBtn");
 
     function placeLolPopOnce(){
       const a = area.getBoundingClientRect();
@@ -854,8 +1018,8 @@
       x = Math.max(minX, Math.min(maxX, x));
       y = Math.max(8, Math.min(a.height - 42, y));
 
-      lol.style.left = x + "px";
-      lol.style.top  = y + "px";
+      lolBtn.style.left = x + "px";
+      lolBtn.style.top  = y + "px";
     }
     window.addEventListener("load", placeLolPopOnce);
     window.addEventListener("orientationchange", () => setTimeout(placeLolPopOnce, 250));
@@ -865,14 +1029,12 @@
     const countEl = document.getElementById("stickersCount");
     let count = parseInt(localStorage.getItem(KEY) || "0", 10);
     countEl.textContent = String(count);
-
-    function addStickerRandom(){
+    setInterval(() => {
       const inc = (Math.random() < 0.5 ? 1 : 2);
       count += inc;
       localStorage.setItem(KEY, String(count));
       countEl.textContent = String(count);
-    }
-    setInterval(addStickerRandom, 30000);
+    }, 30000);
 
     // Reviews + analytics
     const reviews = [
@@ -898,7 +1060,6 @@
         const div = document.createElement("div");
         div.className = "reviewTG";
         const starsText = "★".repeat(r.stars) + "☆".repeat(Math.max(0, 5 - r.stars));
-
         div.innerHTML = `
           ${r.pinned ? `<div class="pinnedLabel">Закреплено</div>` : ``}
           <div class="top">
@@ -911,17 +1072,13 @@
               </div>
             </div>
           </div>
-          <div class="body">
-            <div class="comment">${escapeHtml(r.comment)}</div>
-          </div>
+          <div class="body"><div class="comment">${escapeHtml(r.comment)}</div></div>
         `;
         reviewsEl.appendChild(div);
       }
-
       const totalStars = reviews.reduce((s,r) => s + (Number(r.stars) || 0), 0);
       const countR = reviews.length;
       const avg = countR ? (totalStars / countR).toFixed(2) : "0.00";
-
       analyticsEl.innerHTML = `
         <div class="chip">Всего отзывов: <b>${countR}</b></div>
         <div class="chip">Всего ⭐: <b>${totalStars}</b></div>
@@ -938,25 +1095,24 @@
     const fill = document.getElementById("fill");
     const giftsBlock = document.getElementById("giftsBlock");
 
-    // Your mapping
     const giftsByAmount = {
       15: [
-        { id: "love",   title: "Сердце", src: "video/love.mp4" },
-        { id: "mishka", title: "Мишка",  src: "video/mishka.mp4" }
+        { title: "Сердце", src: "video/love.mp4" },
+        { title: "Мишка",  src: "video/mishka.mp4" }
       ],
       25: [
-        { id: "gift",   title: "Подарок", src: "video/gift.mp4" },
-        { id: "flower", title: "Цветок",  src: "video/flower.mp4" }
+        { title: "Подарок", src: "video/gift.mp4" },
+        { title: "Цветок",  src: "video/flower.mp4" }
       ],
       50: [
-        { id: "flowers", title: "Цветы",  src: "video/flowers.mp4" },
-        { id: "tort",    title: "Торт",   src: "video/tort.mp4" },
-        { id: "raketa",  title: "Ракета", src: "video/raketa.mp4" }
+        { title: "Цветы",  src: "video/flowers.mp4" },
+        { title: "Торт",   src: "video/tort.mp4" },
+        { title: "Ракета", src: "video/raketa.mp4" }
       ],
       100: [
-        { id: "top1", title: "Кубок",  src: "video/top1.mp4" },
-        { id: "kolc", title: "Кольцо", src: "video/kolc.mp4" },
-        { id: "alm",  title: "Алмаз",  src: "video/alm.mp4" }
+        { title: "Кубок",  src: "video/top1.mp4" },
+        { title: "Кольцо", src: "video/kolc.mp4" },
+        { title: "Алмаз",  src: "video/alm.mp4" }
       ]
     };
 
@@ -972,21 +1128,15 @@
         giftsBlock.innerHTML = `<div class="emptyGifts">Подарков на ${amount} ⭐ пока нет</div>`;
         return;
       }
-
       const cards = gifts.map(g => `
-        <div class="giftCard" data-title="${g.title}" data-src="${g.src}" data-amount="${amount}">
-          <div class="giftVideo">
-            <video muted playsinline preload="metadata"></video>
-          </div>
-          <div class="giftPricePill">${starIconSvg()}<span class="giftPriceVal">${amount}</span></div>
+        <div class="giftCard" data-src="${g.src}" data-amount="${amount}">
+          <div class="giftVideo"><video muted playsinline preload="metadata"></video></div>
+          <div class="giftPricePill">${starIconSvg()}<span>${amount}</span></div>
         </div>
       `).join("");
-
       giftsBlock.innerHTML = `<div class="giftsGrid">${cards}</div>`;
-
       giftsBlock.querySelectorAll(".giftCard").forEach(card => {
-        const v = card.querySelector("video");
-        v.src = card.dataset.src;
+        card.querySelector("video").src = card.dataset.src;
       });
     }
 
@@ -1012,63 +1162,77 @@
       }catch(e){}
     }
 
-    // Modal open/close
-    const overlay = document.getElementById("overlay");
-    const modalGiftVideo = document.getElementById("modalGiftVideo");
+    // toast
     const toast = document.getElementById("toast");
-    const closeBtn = document.getElementById("closeBtn");
-    const closeX = document.getElementById("closeX");
-
-    function openSheet(){
-      overlay.classList.add("open");
-      overlay.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
-    }
-    function closeSheet(){
-      overlay.classList.remove("open");
-      overlay.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
-      try{ modalGiftVideo.pause(); }catch(e){}
-    }
     function showToast(text){
       toast.textContent = text;
       toast.classList.add("show");
       setTimeout(() => toast.classList.remove("show"), 1500);
     }
 
-    // click gift: play card once + open modal + play modal once
+    // ===== Gift overlay open/close
+    const giftOverlay = document.getElementById("giftOverlay");
+    const modalGiftVideo = document.getElementById("modalGiftVideo");
+    const giftCloseBtn = document.getElementById("giftCloseBtn");
+    const giftCloseX = document.getElementById("giftCloseX");
+
+    function openGiftSheet(src, amount){
+      modalGiftVideo.src = src;
+      modalGiftVideo.load();
+      giftOverlay.classList.add("open");
+      giftOverlay.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      setTimeout(() => playOnce(modalGiftVideo), 80);
+      showToast(`Вы выбрали ${amount} ⭐ — отправлю на @RealZanT`);
+    }
+    function closeGiftSheet(){
+      giftOverlay.classList.remove("open");
+      giftOverlay.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      try{ modalGiftVideo.pause(); }catch(e){}
+    }
+    giftCloseBtn.addEventListener("click", closeGiftSheet);
+    giftCloseX.addEventListener("click", closeGiftSheet);
+    giftOverlay.addEventListener("click", (e) => { if (e.target === giftOverlay) closeGiftSheet(); });
+
     giftsBlock.addEventListener("click", (e) => {
       const card = e.target.closest(".giftCard");
       if (!card) return;
-
-      const currentAmount = parseInt(card.dataset.amount || "15", 10);
       const v = card.querySelector("video");
       playOnce(v);
-
-      modalGiftVideo.src = card.dataset.src;
-      modalGiftVideo.load();
-
-      openSheet();
-      setTimeout(() => playOnce(modalGiftVideo), 80);
-      showToast(`Вы выбрали ${currentAmount} ⭐ — отправлю на @RealZanT`);
+      openGiftSheet(card.dataset.src, parseInt(card.dataset.amount || "15",10));
     });
 
-    // lolpop button opens modal with lolpop.mp4 (one play)
-    lol.addEventListener("click", () => {
-      const currentAmount = amounts[parseInt(range.value,10)] ?? 15;
-      modalGiftVideo.src = "video/lolpop.mp4";
-      modalGiftVideo.load();
-      openSheet();
-      setTimeout(() => playOnce(modalGiftVideo), 80);
-      showToast(`Вы выбрали ${currentAmount} ⭐ — отправлю на @RealZanT`);
-    });
+    // ===== Lolpop details overlay (like screenshot)
+    const lolOverlay = document.getElementById("lolOverlay");
+    const lolBigVideo = document.getElementById("lolBigVideo");
+    const lolOkBtn = document.getElementById("lolOkBtn");
 
-    // close
-    closeBtn.addEventListener("click", closeSheet);
-    closeX.addEventListener("click", closeSheet);
-    overlay.addEventListener("click", (e) => { if (e.target === overlay) closeSheet(); });
+    function openLolDetails(){
+      lolBigVideo.src = "video/lolpop.mp4";
+      lolBigVideo.load();
+      lolOverlay.classList.add("open");
+      lolOverlay.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      setTimeout(() => playOnce(lolBigVideo), 80);
+    }
+    function closeLolDetails(){
+      lolOverlay.classList.remove("open");
+      lolOverlay.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      try{ lolBigVideo.pause(); }catch(e){}
+    }
+    lolOkBtn.addEventListener("click", closeLolDetails);
+    lolOverlay.addEventListener("click", (e) => { if (e.target === lolOverlay) closeLolDetails(); });
+
+    // click lollipop (leg.png) => open details like screenshot
+    lolBtn.addEventListener("click", openLolDetails);
+
+    // Esc closes any open overlay
     window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && overlay.classList.contains("open")) closeSheet();
+      if (e.key !== "Escape") return;
+      if (giftOverlay.classList.contains("open")) closeGiftSheet();
+      if (lolOverlay.classList.contains("open")) closeLolDetails();
     });
   </script>
 </body>
