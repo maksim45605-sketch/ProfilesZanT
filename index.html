@@ -857,7 +857,21 @@
     }
 
     // каждые 2 минуты
-    setInterval(addSticker, 120000);
+    // "База": добавляем стикеры каждые 30 секунд (+1 или +2)
+const KEY = "mrzant_stickers_made";
+const countEl = document.getElementById("stickersCount");
+
+let count = parseInt(localStorage.getItem(KEY) || "0", 10);
+countEl.textContent = String(count);
+
+function addStickerRandom(){
+  const inc = (Math.random() < 0.5 ? 1 : 2); // +1 или +2
+  count += inc;
+  localStorage.setItem(KEY, String(count));
+  countEl.textContent = String(count);
+}
+
+setInterval(addStickerRandom, 30000);
 
     // Reviews + analytics (fixed like screenshot)
     const reviews = [
