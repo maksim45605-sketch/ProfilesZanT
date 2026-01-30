@@ -9,7 +9,6 @@
     :root{
       --bg:#64707e; --bg2:#5d6876; --text:#eef3ff;
       --panel1: rgba(16,21,34,.92); --panel2: rgba(12,16,28,.92);
-      --line: rgba(255,255,255,.10);
       --white:#fff; --whiteLine:#e7eaf2; --gold2:#d18c00;
       --green1:#b9f06f; --green2:#96d84f;
       --gold:#f2b100;
@@ -34,7 +33,6 @@
       z-index: 0;
       overflow:hidden;
     }
-    /* soft moving lights */
     .fx::before{
       content:"";
       position:absolute; inset:-20%;
@@ -51,8 +49,6 @@
       from{ transform: translate3d(-2%, -1%, 0) scale(1.02); }
       to{ transform: translate3d(2%, 1.5%, 0) scale(1.06); }
     }
-
-    /* “doodle” pattern */
     .fx::after{
       content:"";
       position:absolute; inset:0;
@@ -67,7 +63,6 @@
       mix-blend-mode: overlay;
     }
 
-    /* your kto.png scattered (smaller) */
     .bg-icons{
       position: fixed; inset: 0; pointer-events: none; opacity: .20;
       filter: grayscale(15%) contrast(105%);
@@ -87,7 +82,7 @@
 
     .page{min-height:100%; position:relative; z-index: 2;}
 
-    /* ===== Header like Telegram profile ===== */
+    /* ===== Header ===== */
     .header{
       position: relative;
       padding: 28px 16px 18px;
@@ -95,7 +90,6 @@
       min-height: 300px;
     }
     .avatarArea{ position: relative; width: min(560px, 100%); padding: 10px 0 0; }
-
     .avatarArea::before{
       content:""; position:absolute; width:220px; height:220px; border-radius:999px;
       left:50%; top:8px; transform:translateX(-50%);
@@ -116,7 +110,6 @@
       background: rgba(0,0,0,.18); border: 1px solid rgba(0,0,0,.25); }
     .avatar video{ width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; }
 
-    /* Lolpop floating + glow + sparkles */
     .lolPop{
       position:absolute; width:36px; height:36px; border-radius:999px;
       display:grid; place-items:center; cursor:pointer;
@@ -154,7 +147,6 @@
     }
     @keyframes glow{ 0%,100%{transform:scale(.96);opacity:.84} 50%{transform:scale(1.06);opacity:1} }
     @keyframes ring{ 0%,100%{transform:scale(.98);opacity:.22} 50%{transform:scale(1.16);opacity:.56} }
-
     .lolPop img{ width:22px; height:22px; object-fit:contain; pointer-events:none; }
 
     .nameRow{
@@ -197,7 +189,6 @@
       box-shadow: 0 18px 50px rgba(0,0,0,.20);
       position:relative; overflow:hidden;
     }
-    /* shine */
     .tile::before{
       content:"";
       position:absolute;
@@ -214,7 +205,6 @@
     }
     .tile span{ font-weight: 1000; font-size: 18px; position:relative; z-index:1; }
     .tile svg{ position:relative; z-index:1; }
-
     @media (max-width:520px){ .tile{width:100%} }
 
     .sectionTitle{ color: rgba(255,255,255,.92); font-size: 20px; font-weight: 1000; margin: 16px 0 10px; }
@@ -294,7 +284,6 @@
     .donateWrap > *{ position:relative; z-index:1; }
 
     .donateTop{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom: 12px; }
-
     .bubble{
       display:inline-flex; align-items:center; gap:10px;
       padding: 10px 12px;
@@ -326,7 +315,6 @@
     }
     .fill{ position:absolute; left:0; top:0; bottom:0; width:0%;
       background: linear-gradient(90deg, rgba(255,200,0,.42), rgba(255,200,0,.12)); }
-
     input[type="range"]{
       -webkit-appearance:none; appearance:none;
       width:100%; background: transparent;
@@ -346,7 +334,7 @@
     .steps{ display:flex; justify-content:space-between;
       color: rgba(255,255,255,.65); font-weight: 900; font-size: 12px; margin-top: 8px; }
 
-    /* Gifts compact + extra glow */
+    /* Gifts */
     .giftsGrid{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -354,7 +342,6 @@
       margin-top: 12px;
     }
     @media (max-width:520px){ .giftsGrid{grid-template-columns: 1fr 1fr;} }
-
     .giftCard{
       border-radius: 18px;
       border: 1px solid rgba(255,255,255,.08);
@@ -416,7 +403,6 @@
       background: rgba(0,0,0,.06);
       pointer-events:none;
     }
-
     .giftPricePill{
       position:absolute;
       left: 50%;
@@ -437,7 +423,6 @@
       z-index:1;
     }
     .giftPricePill svg{width: 18px; height: 18px}
-
     .emptyGifts{
       margin-top: 10px;
       padding: 12px 12px;
@@ -494,7 +479,6 @@
     .reviewTG .pill .starsText{color: var(--gold2); letter-spacing: .5px; font-weight: 1100;}
     .reviewTG .body{ padding: 18px 16px 18px; background: #ffffff; }
     .reviewTG .comment{ color: #6a768e; font-size: 34px; line-height: 1.08; font-weight: 700; }
-
     .pinnedLabel{
       position:absolute; top: 10px; left: 10px;
       font-size: 12px; font-weight: 1000;
@@ -519,7 +503,6 @@
       z-index: 999;
     }
     .overlay.open{display:flex}
-
     .sheet{
       width: min(760px, 100%);
       border-radius: 22px 22px 18px 18px;
@@ -532,14 +515,29 @@
       position: relative;
     }
     @keyframes sheetIn{ to{ transform: translateY(0) } }
-
     .sheetHeader{
       padding: 14px 16px;
       font-size: 22px;
       font-weight: 1100;
       border-bottom: 1px solid rgba(255,255,255,.08);
       background: rgba(30,30,30,.85);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
     }
+    .closeX{
+      border:0;
+      cursor:pointer;
+      color: rgba(255,255,255,.86);
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      width: 38px; height: 38px;
+      border-radius: 12px;
+      font-size: 22px;
+      line-height: 38px;
+    }
+
     .sheetBody{
       position: relative;
       padding: 14px 16px 12px;
@@ -562,24 +560,8 @@
       mix-blend-mode: screen;
     }
 
-    .sheetInfo{
-      text-align:center;
-      color: rgba(255,255,255,.88);
-      font-weight: 900;
-      line-height: 1.25;
-      position: relative;
-      z-index: 1;
-      margin-top: 6px;
-    }
-    .sheetInfo small{
-      display:block;
-      color: rgba(255,255,255,.65);
-      font-weight: 900;
-      margin-top: 8px;
-    }
-
     .giftPreview{
-      margin: 12px auto 10px;
+      margin: 10px auto 10px;
       width: min(460px, 100%);
       border-radius: 20px;
       border: 1px solid rgba(255,255,255,.10);
@@ -596,7 +578,6 @@
       position:relative;
       overflow:hidden;
     }
-    /* extra glitter inside preview */
     .giftPreviewInner::before{
       content:"";
       position:absolute; inset:-40px;
@@ -645,8 +626,7 @@
       position:relative;
       z-index:1;
     }
-    .giftFrom{ color: rgba(255,255,255,.90); font-weight: 1000; font-size: 18px; margin-top: 2px; position:relative; z-index:1;}
-    .giftHint{ color: rgba(255,255,255,.72); font-weight: 900; margin-top: 6px; position:relative; z-index:1; }
+
     .sheetInput{
       margin-top: 10px;
       width: 100%;
@@ -660,12 +640,13 @@
       position: relative;
       z-index: 1;
     }
+
     .sheetFooter{
       padding: 14px 16px 16px;
       background: rgba(0,0,0,.35);
       border-top: 1px solid rgba(255,255,255,.06);
     }
-    .sendBtn{
+    .closeBtn{
       width: 100%;
       border: 0;
       cursor: pointer;
@@ -673,12 +654,11 @@
       padding: 16px 14px;
       font-weight: 1100;
       font-size: 18px;
-      color: rgba(10,12,16,.88);
-      background: linear-gradient(180deg, var(--green1), var(--green2));
-      display:inline-flex; justify-content:center; align-items:center; gap: 10px;
+      color: rgba(255,255,255,.90);
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.12);
       box-shadow: 0 18px 55px rgba(0,0,0,.28);
     }
-    .sendBtn svg{width: 22px; height: 22px}
 
     .toast{
       position: fixed;
@@ -823,36 +803,24 @@
   <!-- Modal -->
   <div class="overlay" id="overlay" aria-hidden="true">
     <div class="sheet" role="dialog" aria-modal="true" aria-label="Отправить подарок">
-      <div class="sheetHeader">Отправить подарок</div>
+      <div class="sheetHeader">
+        <span>Отправить подарок</span>
+        <button class="closeX" id="closeX" aria-label="Закрыть">×</button>
+      </div>
 
       <div class="sheetBody">
-        <div class="sheetInfo">
-          <div><span style="opacity:.9;">MRZANT|SHOP|OFFICIAL</span> отправил(а) Вам подарок стоимостью <b><span id="modalCostTop">15</span> звёзд</b></div>
-          <small>Подарок от MRZANT|SHOP|OFFICIAL</small>
-        </div>
-
         <div class="giftPreview">
           <div class="giftPreviewInner">
             <div class="giftPreviewVideo">
               <video id="modalGiftVideo" muted playsinline preload="metadata"></video>
             </div>
-
-            <div class="giftFrom" id="modalGiftTitle">Подарок</div>
-            <div class="giftHint">Вы можете добавить этот подарок в профиль.</div>
-
             <div class="sheetInput">Отправляйте сюда @RealZanT</div>
           </div>
         </div>
       </div>
 
       <div class="sheetFooter">
-        <button class="sendBtn" id="sendBtn">
-          Отправить подарок за
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path fill="#ffffff" d="M12 2.6l2.62 6.29 6.8.56-5.18 4.48 1.58 6.66L12 17.9 6.18 20.6l1.58-6.66L2.58 9.45l6.8-.56L12 2.6z"/>
-          </svg>
-          <span id="modalCostBtn">15</span>
-        </button>
+        <button class="closeBtn" id="closeBtn">Закрыть</button>
       </div>
     </div>
   </div>
@@ -1006,7 +974,7 @@
       }
 
       const cards = gifts.map(g => `
-        <div class="giftCard" data-id="${g.id}" data-title="${g.title}" data-src="${g.src}" data-amount="${amount}">
+        <div class="giftCard" data-title="${g.title}" data-src="${g.src}" data-amount="${amount}">
           <div class="giftVideo">
             <video muted playsinline preload="metadata"></video>
           </div>
@@ -1027,11 +995,8 @@
       bubbleVal.textContent = val;
       chosenVal.textContent = val;
       fill.style.width = ((i/3)*100) + "%";
-      document.getElementById("modalCostTop").textContent = val;
-      document.getElementById("modalCostBtn").textContent = val;
       renderGiftsForAmount(val);
     }
-
     range.addEventListener("input", () => setAmountByIndex(parseInt(range.value,10)));
     setAmountByIndex(0);
 
@@ -1050,9 +1015,9 @@
     // Modal open/close
     const overlay = document.getElementById("overlay");
     const modalGiftVideo = document.getElementById("modalGiftVideo");
-    const modalGiftTitle = document.getElementById("modalGiftTitle");
     const toast = document.getElementById("toast");
-    const sendBtn = document.getElementById("sendBtn");
+    const closeBtn = document.getElementById("closeBtn");
+    const closeX = document.getElementById("closeX");
 
     function openSheet(){
       overlay.classList.add("open");
@@ -1076,43 +1041,34 @@
       const card = e.target.closest(".giftCard");
       if (!card) return;
 
-      const amount = parseInt(card.dataset.amount || "15", 10);
+      const currentAmount = parseInt(card.dataset.amount || "15", 10);
       const v = card.querySelector("video");
       playOnce(v);
 
-      modalGiftTitle.textContent = `Подарок: ${card.dataset.title}`;
       modalGiftVideo.src = card.dataset.src;
       modalGiftVideo.load();
-      document.getElementById("modalCostTop").textContent = amount;
-      document.getElementById("modalCostBtn").textContent = amount;
 
       openSheet();
       setTimeout(() => playOnce(modalGiftVideo), 80);
-      showToast("Отправлю на юз @RealZanT");
+      showToast(`Вы выбрали ${currentAmount} ⭐ — отправлю на @RealZanT`);
     });
 
-    // lolpop button opens modal with lolpop.mp4
+    // lolpop button opens modal with lolpop.mp4 (one play)
     lol.addEventListener("click", () => {
-      const currentAmount = amounts[parseInt(range.value,10)] ?? 15; // just show current selected price
-      modalGiftTitle.textContent = "Подарок: Lolpop";
+      const currentAmount = amounts[parseInt(range.value,10)] ?? 15;
       modalGiftVideo.src = "video/lolpop.mp4";
       modalGiftVideo.load();
-      document.getElementById("modalCostTop").textContent = currentAmount;
-      document.getElementById("modalCostBtn").textContent = currentAmount;
-
       openSheet();
       setTimeout(() => playOnce(modalGiftVideo), 80);
-      showToast("Отправлю на юз @RealZanT");
+      showToast(`Вы выбрали ${currentAmount} ⭐ — отправлю на @RealZanT`);
     });
 
+    // close
+    closeBtn.addEventListener("click", closeSheet);
+    closeX.addEventListener("click", closeSheet);
     overlay.addEventListener("click", (e) => { if (e.target === overlay) closeSheet(); });
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && overlay.classList.contains("open")) closeSheet();
-    });
-
-    sendBtn.addEventListener("click", () => {
-      showToast("Отправлю на юз @RealZanT");
-      closeSheet();
     });
   </script>
 </body>
